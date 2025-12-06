@@ -24,4 +24,8 @@ jobs:
       - name: Run Coze bot
         env:
           COZE_TOKEN: ${{ secrets.COZE_TOKEN }}   # 把密钥注入环境变量
-        run: python coze_bot.py
+        #run: python coze_bot.py
+        run: |
+          pwd                  # 看看在哪
+          ls -la               # 确认文件存在
+          python3 ${{ github.workspace }}/coze_bot.py
