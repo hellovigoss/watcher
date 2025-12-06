@@ -1,0 +1,27 @@
+name: Daily Coze Workflow
+
+on:
+  schedule:
+    # 每天 UTC 01:00 = 北京时间 09:00（UTC+8）
+    - cron: '0 1 * * *'
+  workflow_dispatch:   # 手动触发按钮，方便测试
+
+jobs:
+  run-coze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Coze bot
+        env:
+          COZE_TOKEN: ${{ secrets.COZE_TOKEN }}   # 把密钥注入环境变量
+        run: python coze_bot.py
